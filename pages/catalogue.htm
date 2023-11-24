@@ -1,0 +1,15 @@
+url = "/"
+layout = "default"
+title = "catalogue"
+meta_title = "Жанры"
+
+[Genres]
+==
+<h1>Жанры</h1>
+<div class="genres-list">
+    {% for genre in Genres.genres %}
+        <a href="{{ 'films-genre' | page({ genre: genre.slug}) }}">
+            <h4>{{ genre.name }}</h4>
+        </a>
+    {% endfor %}
+</div>

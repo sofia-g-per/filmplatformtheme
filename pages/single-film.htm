@@ -1,0 +1,44 @@
+title = "single-film"
+layout = "default"
+url = "/:film"
+
+[Films]
+maxItems = 10
+==
+{% set film = Films.getFilmBySlug %}
+<div>    
+    <h1>{{ film.name }}</h1>
+    <h5>Описание</h5>
+    <p>{{ film.description }}</p>
+    <h5>Дата выхода</h5>
+    <p>{{ film.release_date | date('d-m-Y')}}</p>
+
+    <h5>Актеры</h5>
+    <div>
+        {% for crew in film.actors %}
+            <p>{{ crew.last_name~' '~crew.first_name }}</p>
+        {% endfor %}
+    </div>
+
+    <h5>Режиссеры</h5>
+    <div>
+    {% for crew in film.directors %}
+        <p>{{ crew.last_name~' '~crew.first_name }}</p>
+    {% endfor %}
+    </div>
+
+    {% if film.cover_img %}
+        <img src="{{ film.cover_img.url }}" class="w-20">
+    {% endif %}
+
+    <div class="mw-100 d-flex p-3">
+        {% if film.photos %}
+            {% for photo in film.photos %}
+                <div>
+                    <img  src="{{ photo.url }}" >
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+</div>
